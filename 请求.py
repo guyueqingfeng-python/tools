@@ -1,11 +1,12 @@
 import time
-from typing import Dict, List, Optional, Callable, Tuple
+from typing import Dict, Optional
 
 import logging
 import requests
 from lxml import etree
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.service import Service
 from selenium.webdriver.remote.webdriver import WebDriverException
@@ -166,7 +167,7 @@ def gain_chrome_driver(
         'profile.managed_default_content_settings.notifications': 2
     }
     options.add_experimental_option('prefs', prefs)
-    service = Service()
+    service = Service(ChromeDriverManager().install())
     for i in range(request_time):
         try:
             driver = webdriver.Chrome(service=service, options=options)
